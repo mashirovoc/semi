@@ -2,32 +2,145 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 327.6 100% 53.9%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 327.6 100% 53.9%;
+    --radius: 0.5rem;
+    --chart-1: 330 100% 74.9%;
+    --chart-2: 0 100% 74.9%;
+    --chart-3: 300 100% 74.94%;
+    --chart-4: 210 100% 74.9%;
+    --chart-5: 120 100% 74.9%;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 327.6 100% 53.9%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 327.6 100% 53.9%;
+    --radius: 0.5rem;
+    --chart-1: 330 100% 74.9%;
+    --chart-2: 0 100% 74.9%;
+    --chart-3: 300 100% 74.94%;
+    --chart-4: 210 100% 74.9%;
+    --chart-5: 120 100% 74.9%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground custom-scrollbar;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .no-focus {
+    @apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary/80 rounded-full;
+  }
+
+  .header {
+    @apply fixed h-14 bg-background/80 z-40 backdrop-blur-md top-0 left-0 right-0;
+  }
+
+  .leftSideBar {
+    @apply shrink-0 bg-background/80 z-10 backdrop-blur-md hidden md:flex flex-col w-20 lg:w-64 p-3 items-end lg:items-start fixed top-14 bottom-0 left-0 overflow-y-auto custom-scrollbar;
+  }
+
+  .smSideBar {
+    @apply w-full h-full bg-background/80 backdrop-blur-md flex flex-col p-3 items-start overflow-y-auto custom-scrollbar;
+  }
+
+  .hover_bg {
+    @apply cursor-pointer hover:bg-accent duration-300 ease-in-out transition-colors;
+  }
+
+  .hover_text_muted {
+    @apply text-sm text-muted-foreground hover:text-muted-foreground/80;
+  }
+
+  .link_button {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+
+  .title {
+    @apply text-lg font-bold flex items-center;
+  }
+
+  .title_container {
+    @apply flex justify-between items-center;
+  }
+
+  .animated_dialog_bg {
+    @apply fixed top-0 left-0 z-50 w-full h-full md:bg-black/60 md:backdrop-blur-md flex items-center justify-center;
+  }
+
+  .animated_dialog {
+    @apply relative w-full max-md:h-full md:max-w-[470px] md:max-h-[70%] md:rounded-md bg-background/80 md:bg-background max-md:backdrop-blur-md overflow-y-auto custom-scrollbar;
+  }
+
+  .animated_sidebar_bg {
+    @apply fixed top-0 left-0 z-50 w-full h-full;
+  }
+
+  .animated_sidebar {
+    @apply absolute left-0 top-0 overflow-y-auto custom-scrollbar w-64 h-full flex flex-col bg-background text-foreground;
+  }
+
+  .mini_card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm flex items-center gap-3 p-3;
+  }
+
+  .mini_card_woStyle {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
   }
 }
